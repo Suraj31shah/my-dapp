@@ -2,34 +2,78 @@
 @tailwind components;
 @tailwind utilities;
 
-    :root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 255, 255, 255;
-  --background-end-rgb: 245, 245, 245;
+:root {
+  --foreground-rgb: 15, 23, 42;
+  --background-start-rgb: 248, 250, 252;
+  --background-end-rgb: 241, 245, 249;
+  --accent: 79, 70, 229;
+  --accent-foreground: 255, 255, 255;
+  --card: 255, 255, 255;
+  --card-foreground: 15, 23, 42;
 }
 
-    
-    @media (prefers-color-scheme: dark) {
-      :root {
-        --foreground-rgb: 255, 255, 255;
-        --background-start-rgb: 0, 0, 0;
-        --background-end-rgb: 0, 0, 0;
-      }
-    }
+@media (prefers-color-scheme: dark) {
+  :root {
+    --foreground-rgb: 248, 250, 252;
+    --background-start-rgb: 2, 6, 23;
+    --background-end-rgb: 15, 23, 42;
+    --accent: 99, 102, 241;
+    --card: 30, 41, 59;
+    --card-foreground: 248, 250, 252;
+  }
+}
 
-    .dark {
-      --foreground-rgb: 255, 255, 255;
-      --background-start-rgb: 0, 0, 0;
-      --background-end-rgb: 0, 0, 0;
-    }
-    
+.dark {
+  --foreground-rgb: 248, 250, 252;
+  --background-start-rgb: 2, 6, 23;
+  --background-end-rgb: 15, 23, 42;
+}
 
-    body {
+body {
   color: rgb(var(--foreground-rgb));
+  background: radial-gradient(circle at top center, rgb(var(--background-end-rgb)), rgb(var(--background-start-rgb)));
+  min-height: 100vh;
+}
+
+.glass {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.card-shine {
+  position: relative;
+  overflow: hidden;
+}
+
+.card-shine::after {
+  content: "";
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
   background: linear-gradient(
-    to bottom,
+    45deg,
     transparent,
-    rgb(var(--background-end-rgb))
-        )
-  rgb(var(--background-start-rgb));
+    rgba(255, 255, 255, 0.03),
+    transparent
+  );
+  transform: rotate(45deg);
+  transition: 0.5s;
+}
+
+.card-shine:hover::after {
+  left: 100%;
+}
+
+@keyframes float {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+  100% { transform: translateY(0px); }
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
 }

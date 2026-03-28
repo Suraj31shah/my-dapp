@@ -1,0 +1,24 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+model Event {
+  id             String   @id @default(cuid())
+  chainId        Int      @default(84532)
+  onchainEventId Int?     // Assigned by Smart Contract upon creation
+  organizer      String   // Wallet address
+  name           String
+  date           String   // E.g., "March 15, 2024"
+  venue          String
+  price          String   // Stored as string to prevent precision loss (ETH format like "0.05")
+  totalSupply    Int
+  type           String
+  description    String?
+  image          String?  // Image URL or IPFS CID
+  createdAt      DateTime @default(now())
+}
